@@ -28,6 +28,18 @@ If you have Chef DK:
 chef exec inspec exec .
 ```
 
+### Test Kitchen:
+
+Prerequisites:
+*	[`kitchen-inspec` plugin](https://github.com/chef/kitchen-inspec)
+
+```yaml
+  inspec_tests:
+    - git: https://github.com/FIDATA/build-environment
+      branch: develop
+```
+
+
 ## Sources of prerequisites
 *	http://www.postgresql.org/docs/9.3/static/install-requirements.html
 *	http://www.postgresql.org/docs/9.3/static/install-windows-full.html#AEN26181

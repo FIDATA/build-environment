@@ -5,7 +5,7 @@ copyright: Basil Peace
 copyright_email: grv87@yandex.ru
 license: Apache v2.0
 summary: Checks that environment is sane and meets requirements to build FIDATA
-version: "1.0.0"
+version: "1.0.1"
 supports:
   - os-family: linux
   - os-family: windows
