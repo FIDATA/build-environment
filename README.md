@@ -36,7 +36,7 @@ Prerequisites:
 ```yaml
   inspec_tests:
     - git: https://github.com/FIDATA/build-environment
-      branch: develop
+      branch: master
 ```
 
 
