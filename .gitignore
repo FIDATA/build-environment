@@ -1,0 +1,6 @@
+# Bundle
+Gemfile.lock
+# Inspec
+inspec.lock
+# GFM Viewer
+.*.md.html

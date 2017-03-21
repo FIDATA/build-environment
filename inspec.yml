@@ -1,0 +1,12 @@
+name: fidata-build-environment
+title: FIDATA Build Environment
+maintainer: Basil Peace
+copyright: Basil Peace
+copyright_email: grv87@yandex.ru
+license: Apache v2.0
+summary: Checks that environment is sane and meets requirements to build FIDATA
+version: "1.0.0"
+supports:
+  - os-family: linux
+  - os-family: windows
+  - os-family: mac_os_x
