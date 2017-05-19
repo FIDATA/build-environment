@@ -50,7 +50,7 @@ Prerequisites:
 ## Development
 *	Before commit run checks:
 ```
-inspec check .
+bundle exec inspec check .
 ```
 
 
