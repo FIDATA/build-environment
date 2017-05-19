@@ -59,13 +59,6 @@ control 'non-windows' do
     its('exit_status') { should eq 0 }
   end
 
-  describe command('convert') do
-    it { should exist }
-  end
-  describe command('convert --version') do
-    its('exit_status') { should eq 0 }
-  end
-
   # Until https://github.com/chef/inspec/issues/1418 is fixed
   # we run this test for non-windows only
   describe command_output('diff --version', parsed_with: lambda { |stdout, stderr|
