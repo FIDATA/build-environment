@@ -9,4 +9,4 @@ version: "1.0.2"
 supports:
   - os-family: linux
   - os-family: windows
-  - os-family: mac_os_x
+  - os-family: darwin
