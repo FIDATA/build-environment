@@ -21,7 +21,7 @@
 
 source 'https://fidata.jfrog.io/fidata/api/gems/gems'
 
-gem 'rspec'
-gem 'inspec'
-gem 'semverse'
+gem 'rspec', '~> 3'
+gem 'inspec', '~> 1'
+gem 'semverse', '~> 2'
 gem 'rubocop'
