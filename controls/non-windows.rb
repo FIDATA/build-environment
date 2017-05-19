@@ -41,17 +41,6 @@ control 'non-windows' do
   }) do
     it { is_expected.to be_satisfied_by '>= 4.7' }
   end
-  describe command('gmake') do
-    it { should exist }
-  end
-  describe command('gmake --version') do
-    its('exit_status') { should eq 0 }
-  end
-  describe command_output('gmake --version', parsed_with: lambda { |stdout, _stderr|
-    return stdout[/^GNU Make (\d+\.\d+)/, 1]
-  }) do
-    it { is_expected.to be_satisfied_by '>= 3.80' }
-  end
 
   describe command('gfortran') do
     it { should exist }
