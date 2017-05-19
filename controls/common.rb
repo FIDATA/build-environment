@@ -22,6 +22,8 @@
 control 'common' do
   impact 1.0
   title 'Common tests'
+  desc 'Requirements for all platforms'
+
   describe os_env('JAVA_HOME') do
     its('content') { should_not eq '' }
     its('content') { should_not eq nil }

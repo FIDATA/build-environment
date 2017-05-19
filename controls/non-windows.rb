@@ -22,6 +22,7 @@
 control 'non-windows' do
   impact 1.0
   title 'Non-Windows-specific tests'
+  desc 'Additional requirements for all platforms except Windows'
   only_if do
     !os.windows?
   end
