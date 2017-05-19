@@ -165,6 +165,20 @@ control 'common' do
     it { is_expected.to be_satisfied_by '>= 2.2' }
   end
 
+  describe command('xmllint') do
+    it { should exist }
+  end
+  describe command('xmllint --version') do
+    its('exit_status') { should eq 0 }
+  end
+
+  describe command('xsltproc') do
+    it { should exist }
+  end
+  describe command('xsltproc --version') do
+    its('exit_status') { should eq 0 }
+  end
+
   describe os_env('IMCONV') do
     its('content') { should_not be_empty }
   end

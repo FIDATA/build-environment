@@ -41,13 +41,13 @@ control 'non-windows' do
   }) do
     it { is_expected.to be_satisfied_by '>= 4.7' }
   end
-  describe command('make') do
+  describe command('gmake') do
     it { should exist }
   end
-  describe command(' --version') do
+  describe command('gmake --version') do
     its('exit_status') { should eq 0 }
   end
-  describe command_output('make --version', parsed_with: lambda { |stdout, _stderr|
+  describe command_output('gmake --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^GNU Make (\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 3.80' }

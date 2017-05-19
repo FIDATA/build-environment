@@ -41,8 +41,9 @@ Prerequisites:
 
 
 ## Sources of prerequisites
-*	http://www.postgresql.org/docs/9.3/static/install-requirements.html
-*	http://www.postgresql.org/docs/9.3/static/install-windows-full.html#AEN26181
+*	https://www.postgresql.org/docs/9.6/static/install-requirements.html
+*	https://www.postgresql.org/docs/9.6/static/docguide-toolsets.html
+*	https://www.postgresql.org/docs/9.6/static/install-windows-full.html#AEN30843
 *	http://qt-project.org/wiki/Building-Qt-5-from-Git
 *	http://qt-project.org/doc/qt-5/windows-requirements.html
 
