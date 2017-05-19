@@ -23,7 +23,6 @@ require 'rspec'
 require 'semverse'
 
 RSpec::Matchers.define :be_satisfied_by do |constraint|
-
   match do |actual|
     begin
       version = Semverse::Version.new(actual.parsed_output)
@@ -36,5 +35,4 @@ RSpec::Matchers.define :be_satisfied_by do |constraint|
   failure_message do |actual|
     "expected that stdout\n\n#{actual.stdout.rstrip}\n\nand stderr\n\n#{actual.stderr.rstrip}\n\nwhen parsed would be satisfied by #{constraint}"
   end
-
 end

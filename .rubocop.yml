@@ -1,0 +1,17 @@
+Style/EndOfLine:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: true

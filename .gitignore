@@ -4,3 +4,5 @@ Gemfile.lock
 inspec.lock
 # GFM Viewer
 .*.md.html
+# Rubocop
+.rubocop_todo.yml

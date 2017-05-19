@@ -35,7 +35,7 @@ control 'non-windows' do
   describe command('g++') do
     it { should exist }
   end
-  describe command_output('g++ --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('g++ --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^g\+\+ \(.*\) (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 4.7' }
@@ -46,7 +46,7 @@ control 'non-windows' do
   describe command(' --version') do
     its('exit_status') { should eq 0 }
   end
-  describe command_output('make --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('make --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^GNU Make (\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 3.80' }
@@ -61,7 +61,7 @@ control 'non-windows' do
 
   # Until https://github.com/chef/inspec/issues/1418 is fixed
   # we run this test for non-windows only
-  describe command_output('diff --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('diff --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^diff \(GNU diffutils\) (\d+\.\d+(\.\d+)?(-\w)?)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '> 0' }

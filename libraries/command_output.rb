@@ -19,25 +19,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Custom inspec resource for parsed command output
 class CommandOutput < Inspec.resource(1)
   name 'command_output'
   attr_reader :parser
+
   def initialize(cmd, parsed_with:)
     @command = cmd
     @parser = parsed_with
   end
+
   def result
     @result ||= inspec.backend.run_command(@command)
   end
+
   def stdout
     result.stdout
   end
+
   def stderr
     result.stderr
   end
+
   def parsed_output
     parser.call(stdout, stderr)
   end
+
   def to_s
     "Output of `#{@command}`"
   end
