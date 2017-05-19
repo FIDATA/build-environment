@@ -23,6 +23,5 @@ source 'https://fidata.jfrog.io/fidata/api/gems/gems'
 
 gem 'rspec'
 gem 'inspec'
-gem 'nokogiri' # https://github.com/chef/inspec/issues/1562
 gem 'semverse'
 gem 'rubocop'
