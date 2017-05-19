@@ -185,7 +185,7 @@ control 'common' do
 
   IMCONV = os_env('IMCONV').content
   unless IMCONV.to_s.empty?
-    describe command(IMCONV) do
+    describe file(IMCONV.delete('"')) do
       it { should exist }
     end
     describe command("#{IMCONV} --version") do
