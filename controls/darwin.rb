@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 # -*- coding: UTF-8 -*-
 
-# be_satisfied_by custom rspec matcher
-# Copyright © 2017  Basil Peace
+# Darwin-specific tests
+# Copyright © 2014-2017  Basil Peace
 
 # This file is part of FIDATA Build Environment.
 
@@ -19,20 +19,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'rspec'
-require 'semverse'
-
-RSpec::Matchers.define :be_satisfied_by do |constraint|
-  match do |actual|
-    begin
-      version = Semverse::Version.new(actual.parsed_output)
-    rescue
-      return false
-    end
-    Semverse::Constraint.new(constraint).satisfies?(version)
+control 'darwin' do
+  impact 1.0
+  title 'Darwin tests'
+  desc 'Additional requirements for Darwin'
+  only_if do
+    os.darwin?
   end
 
-  failure_message do |actual|
-    "expected that stdout\n\n#{actual.stdout.rstrip}\n\nand stderr\n\n#{actual.stderr.rstrip}\n\nwhen parsed would be satisfied by #{constraint}"
+  describe command('make') do
+    it { should exist }
+  end
+  describe command('make --version') do
+    its('exit_status') { should eq 0 }
+  end
+  describe command_output('make --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^GNU Make (\d+\.\d+)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '>= 3.80' }
   end
 end

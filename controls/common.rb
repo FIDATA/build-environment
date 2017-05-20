@@ -22,6 +22,8 @@
 control 'common' do
   impact 1.0
   title 'Common tests'
+  desc 'Requirements for all platforms'
+
   describe os_env('JAVA_HOME') do
     its('content') { should_not eq '' }
     its('content') { should_not eq nil }
@@ -31,13 +33,13 @@ control 'common' do
     it { should exist }
   end
   # See http://www.oracle.com/technetwork/java/javase/versioning-naming-139433.html
-  describe command_output('java -version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('java -version', parsed_with: lambda { |_stdout, stderr|
     return stderr[/^.*version "1\.(\d+\.\d+(_\d+)?(-\w+)?)"/, 1].sub('_', '.')
   }) do
     it { is_expected.to be_satisfied_by '>= 7.0' }
   end
   # Test for JDK
-  describe command_output('javac -version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('javac -version', parsed_with: lambda { |_stdout, stderr|
     return stderr[/^javac 1\.(\d+\.\d+(_\d+)?(-\w+)?)/, 1].sub('_', '.')
   }) do
     it { is_expected.to be_satisfied_by '>= 7.0' }
@@ -46,7 +48,7 @@ control 'common' do
   describe command('git') do
     it { should exist }
   end
-  describe command_output('git --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('git --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^git version (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 1.6' }
@@ -66,7 +68,7 @@ control 'common' do
   describe command('cmake') do
     it { should exist }
   end
-  describe command_output('cmake --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('cmake --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^cmake version (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '> 0' }
@@ -75,7 +77,7 @@ control 'common' do
   describe command('ruby') do
     it { should exist }
   end
-  describe command_output('ruby --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('ruby --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^ruby (\d+\.\d+.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 2' }
@@ -83,7 +85,7 @@ control 'common' do
   describe command('bundle') do
     it { should exist }
   end
-  describe command_output('bundle --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('bundle --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^Bundler version (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '> 0' }
@@ -92,7 +94,7 @@ control 'common' do
   describe command('perl') do
     it { should exist }
   end
-  describe command_output('perl --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('perl --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^This is perl.*\(v(\d+\.\d+\.\d+)\)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 5.14' }
@@ -101,7 +103,7 @@ control 'common' do
   describe command('lualatex') do
     it { should exist }
   end
-  describe command_output('lualatex --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('lualatex --version', parsed_with: lambda { |stdout, _stderr|
     m = stdout.match(/^This is LuaTeX, Version ((\w+)-)?(\d+\.\d+\.\d+)/)
     return m[3] + (m[2].nil? ? '' : '-' + m[2])
   }) do
@@ -113,7 +115,7 @@ control 'common' do
   describe command('bibtex') do
     it { should exist }
   end
-  describe command_output('bibtex --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('bibtex --version', parsed_with: lambda { |stdout, _stderr|
     m = stdout.match(/^BibTeX (\d+\.\d+)(\w+)/)
     return "#{m[1]}.0-#{m[2]}"
   }) do
@@ -122,7 +124,7 @@ control 'common' do
   describe command('latexmk') do
     it { should exist }
   end
-  describe command_output('latexmk --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('latexmk --version', parsed_with: lambda { |stdout, _stderr|
     m = stdout.match(/^Latexmk.*Version (\d+\.\d+)(\w+)/)
     return "#{m[1]}.0-#{m[2]}"
   }) do
@@ -131,7 +133,7 @@ control 'common' do
   describe command('jadetex') do
     it { should exist }
   end
-  describe command_output('jadetex --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('jadetex --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^pdfTeX (\d+\.\d+)-(\d+\.\d+)-(\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '> 0' }
@@ -140,8 +142,8 @@ control 'common' do
   describe command('pandoc') do
     it { should exist }
   end
-  describe command_output('pandoc --version', parsed_with: lambda { |stdout, stderr|
-  return stdout[/^pandoc(\.exe)? (\d+\.\d+\.\d+)/, 2]
+  describe command_output('pandoc --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^pandoc(\.exe)? (\d+\.\d+\.\d+)/, 2]
   }) do
     it { is_expected.to be_satisfied_by '> 0' }
   end
@@ -149,27 +151,41 @@ control 'common' do
   describe command('flex') do
     it { should exist }
   end
-  describe command_output('flex --version', parsed_with: lambda { |stdout, stderr|
-  return stdout[/^flex(\.exe)?"? (\d+\.\d+\.\d+)/, 2]
+  describe command_output('flex --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^flex(\.exe)?"? (\d+\.\d+\.\d+)/, 2]
   }) do
     it { is_expected.to be_satisfied_by '>= 2.5.31' }
   end
   describe command('bison') do
     it { should exist }
   end
-  describe command_output('bison --version', parsed_with: lambda { |stdout, stderr|
+  describe command_output('bison --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^bison \(GNU Bison\) (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 2.2' }
   end
 
+  describe command('xmllint') do
+    it { should exist }
+  end
+  describe command('xmllint --version') do
+    its('exit_status') { should eq 0 }
+  end
+
+  describe command('xsltproc') do
+    it { should exist }
+  end
+  describe command('xsltproc --version') do
+    its('exit_status') { should eq 0 }
+  end
+
   describe os_env('IMCONV') do
     its('content') { should_not be_empty }
   end
-  
+
   IMCONV = os_env('IMCONV').content
-  if !IMCONV.to_s.empty?
-    describe command(IMCONV) do
+  unless IMCONV.to_s.empty?
+    describe file(IMCONV.delete('"')) do
       it { should exist }
     end
     describe command("#{IMCONV} --version") do
