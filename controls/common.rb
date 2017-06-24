@@ -90,6 +90,15 @@ control 'common' do
   }) do
     it { is_expected.to be_satisfied_by '> 0' }
   end
+  describe os_env('GEM_HOME') do
+    its('content') { should_not be_empty }
+  end
+  GEM_HOME = os_env('GEM_HOME').content
+  unless GEM_HOME.to_s.empty?
+    describe directory(GEM_HOME) do
+      it { should exist }
+    end
+  end
 
   describe command('perl') do
     it { should exist }

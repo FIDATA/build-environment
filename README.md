@@ -34,9 +34,11 @@ Prerequisites:
 *	[`kitchen-inspec` plugin](https://github.com/chef/kitchen-inspec)
 
 ```yaml
-  inspec_tests:
-    - git: https://github.com/FIDATA/build-environment
-      branch: master
+  verifier:
+    name: inspec
+    inspec_tests:
+      - git: https://github.com/FIDATA/build-environment
+        branch: master
 ```
 
 
