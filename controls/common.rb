@@ -100,6 +100,24 @@ control 'common' do
     end
   end
 
+  python = os.windows? ? 'py -3' : 'python3'
+  describe command(python) do
+    it { should exist }
+  end
+  describe command_output("#{python} --version", parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^Python (\d+\.\d+\.\d+)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '>= 3' }
+  end
+  describe command('pipenv') do
+    it { should exist }
+  end
+  describe command_output('pipenv --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^pipenv, version (\d+\.\d+\.\d+)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '>= 5.3.5' }
+  end
+
   describe command('perl') do
     it { should exist }
   end
