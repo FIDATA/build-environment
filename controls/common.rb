@@ -88,7 +88,7 @@ control 'common' do
   describe command_output('bundle --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^Bundler version (\d+\.\d+\.\d+)/, 1]
   }) do
-    it { is_expected.to be_satisfied_by '> 0' }
+    it { is_expected.to be_satisfied_by '>= 1.14' }
   end
   describe os_env('GEM_HOME') do
     its('content') { should_not be_empty }
@@ -107,6 +107,15 @@ control 'common' do
     return stdout[/^This is perl.*\(v(\d+\.\d+\.\d+)\)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 5.14' }
+  end
+
+  describe command('pandoc') do
+    it { should exist }
+  end
+  describe command_output('pandoc --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^pandoc(\.exe)? (\d+\.\d+\.\d+)/, 2]
+  }) do
+    it { is_expected.to be_satisfied_by '> 0' }
   end
 
   describe command('lualatex') do
@@ -144,15 +153,6 @@ control 'common' do
   end
   describe command_output('jadetex --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^pdfTeX (\d+\.\d+)-(\d+\.\d+)-(\d+\.\d+\.\d+)/, 1]
-  }) do
-    it { is_expected.to be_satisfied_by '> 0' }
-  end
-
-  describe command('pandoc') do
-    it { should exist }
-  end
-  describe command_output('pandoc --version', parsed_with: lambda { |stdout, _stderr|
-    return stdout[/^pandoc(\.exe)? (\d+\.\d+\.\d+)/, 2]
   }) do
     it { is_expected.to be_satisfied_by '> 0' }
   end
