@@ -78,7 +78,7 @@ control 'common' do
     it { should exist }
   end
   describe command_output('ruby --version', parsed_with: lambda { |stdout, _stderr|
-    return stdout[/^ruby (\d+\.\d+.\d+)/, 1]
+    return stdout[/^ruby (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 2' }
   end
