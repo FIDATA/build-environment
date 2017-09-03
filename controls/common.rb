@@ -71,7 +71,7 @@ control 'common' do
   describe command_output('cmake --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^cmake version (\d+\.\d+\.\d+)/, 1]
   }) do
-    it { is_expected.to be_satisfied_by '> 0' }
+    it { is_expected.to be_satisfied_by '>= 3.9' }
   end
 
   describe command('ruby') do
