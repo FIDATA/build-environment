@@ -109,6 +109,15 @@ control 'common' do
     it { is_expected.to be_satisfied_by '>= 5.14' }
   end
 
+  describe command('doxygen') do
+    it { should exist }
+  end
+  describe command_output('doxygen --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^(\d+\.\d+(\.\d+)?(-\w+)?)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '> 0' }
+  end
+
   describe command('pandoc') do
     it { should exist }
   end
