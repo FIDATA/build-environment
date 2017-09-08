@@ -99,6 +99,9 @@ control 'common' do
       it { should exist }
     end
   end
+  describe command('ruby -e "require \'bundler\'; print Bundler.settings[:specific_platform]"') do
+    its('stdout') { should eq 'true' }
+  end
 
   python = os.windows? ? 'py -3' : 'python3'
   describe command(python) do
