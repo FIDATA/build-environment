@@ -71,14 +71,14 @@ control 'common' do
   describe command_output('cmake --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^cmake version (\d+\.\d+\.\d+)/, 1]
   }) do
-    it { is_expected.to be_satisfied_by '> 0' }
+    it { is_expected.to be_satisfied_by '>= 3.9' }
   end
 
   describe command('ruby') do
     it { should exist }
   end
   describe command_output('ruby --version', parsed_with: lambda { |stdout, _stderr|
-    return stdout[/^ruby (\d+\.\d+.\d+)/, 1]
+    return stdout[/^ruby (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 2' }
   end
@@ -88,7 +88,7 @@ control 'common' do
   describe command_output('bundle --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^Bundler version (\d+\.\d+\.\d+)/, 1]
   }) do
-    it { is_expected.to be_satisfied_by '> 0' }
+    it { is_expected.to be_satisfied_by '>= 1.14' }
   end
   describe os_env('GEM_HOME') do
     its('content') { should_not be_empty }
@@ -99,6 +99,27 @@ control 'common' do
       it { should exist }
     end
   end
+  describe command('ruby -e "require \'bundler\'; print Bundler.settings[:specific_platform]"') do
+    its('stdout') { should eq 'true' }
+  end
+
+  python = os.windows? ? 'py -3' : 'python3'
+  describe command(python) do
+    it { should exist }
+  end
+  describe command_output("#{python} --version", parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^Python (\d+\.\d+\.\d+)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '>= 3' }
+  end
+  describe command('pipenv') do
+    it { should exist }
+  end
+  describe command_output('pipenv --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^pipenv, version (\d+\.\d+\.\d+)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '>= 5.3.5' }
+  end
 
   describe command('perl') do
     it { should exist }
@@ -107,6 +128,24 @@ control 'common' do
     return stdout[/^This is perl.*\(v(\d+\.\d+\.\d+)\)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 5.14' }
+  end
+
+  describe command('doxygen') do
+    it { should exist }
+  end
+  describe command_output('doxygen --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^(\d+\.\d+(\.\d+)?(-\w+)?)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '> 0' }
+  end
+
+  describe command('pandoc') do
+    it { should exist }
+  end
+  describe command_output('pandoc --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^pandoc(\.exe)? (\d+\.\d+\.\d+)/, 2]
+  }) do
+    it { is_expected.to be_satisfied_by '> 0' }
   end
 
   describe command('lualatex') do
@@ -144,15 +183,6 @@ control 'common' do
   end
   describe command_output('jadetex --version', parsed_with: lambda { |stdout, _stderr|
     return stdout[/^pdfTeX (\d+\.\d+)-(\d+\.\d+)-(\d+\.\d+\.\d+)/, 1]
-  }) do
-    it { is_expected.to be_satisfied_by '> 0' }
-  end
-
-  describe command('pandoc') do
-    it { should exist }
-  end
-  describe command_output('pandoc --version', parsed_with: lambda { |stdout, _stderr|
-    return stdout[/^pandoc(\.exe)? (\d+\.\d+\.\d+)/, 2]
   }) do
     it { is_expected.to be_satisfied_by '> 0' }
   end
