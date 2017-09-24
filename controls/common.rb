@@ -103,11 +103,10 @@ control 'common' do
     its('stdout') { should eq 'true' }
   end
 
-  python = os.windows? ? 'py -3' : 'python3'
-  describe command(python) do
+  describe command(os.windows? ? 'py' : 'python3') do
     it { should exist }
   end
-  describe command_output("#{python} --version", parsed_with: lambda { |stdout, _stderr|
+  describe command_output("#{os.windows? ? 'py -3' : 'python3'} --version", parsed_with: lambda { |stdout, _stderr|
     return stdout[/^Python (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 3' }
