@@ -121,6 +121,23 @@ control 'common' do
     it { is_expected.to be_satisfied_by '>= 5.3.5' }
   end
 
+  describe command('node') do
+    it { should exist }
+  end
+  describe command_output('node --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^v(\d+\.\d+\.\d+)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '> 0.10.32' }
+  end
+  describe command('npm') do
+    it { should exist }
+  end
+  describe command_output('npm --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^(\d+\.\d+\.\d+)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '> 2.1.8' }
+  end
+
   describe command('perl') do
     it { should exist }
   end
