@@ -103,11 +103,10 @@ control 'common' do
     its('stdout') { should eq 'true' }
   end
 
-  python = os.windows? ? 'py -3' : 'python3'
-  describe command(python) do
+  describe command(os.windows? ? 'py' : 'python3') do
     it { should exist }
   end
-  describe command_output("#{python} --version", parsed_with: lambda { |stdout, _stderr|
+  describe command_output("#{os.windows? ? 'py -3' : 'python3'} --version", parsed_with: lambda { |stdout, _stderr|
     return stdout[/^Python (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 3' }
@@ -119,6 +118,23 @@ control 'common' do
     return stdout[/^pipenv, version (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 5.3.5' }
+  end
+
+  describe command('node') do
+    it { should exist }
+  end
+  describe command_output('node --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^v(\d+\.\d+\.\d+)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '> 0.10.32' }
+  end
+  describe command('npm') do
+    it { should exist }
+  end
+  describe command_output('npm --version', parsed_with: lambda { |stdout, _stderr|
+    return stdout[/^(\d+\.\d+\.\d+)/, 1]
+  }) do
+    it { is_expected.to be_satisfied_by '> 2.1.8' }
   end
 
   describe command('perl') do
