@@ -58,7 +58,7 @@ bundle exec inspec check .
 
 
 ------------------------------------------------------------------------
-Copyright © 2014-2017  Basil Peace
+Copyright © 2014-2018  Basil Peace
 
 This file is part of FIDATA Build Environment.
 
