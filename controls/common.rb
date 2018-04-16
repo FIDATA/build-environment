@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 # Common tests
-# Copyright © 2014-2017  Basil Peace
+# Copyright © 2014-2018  Basil Peace
 
 # This file is part of FIDATA Build Environment.
 
@@ -89,15 +89,6 @@ control 'common' do
     return stdout[/^Bundler version (\d+\.\d+\.\d+)/, 1]
   }) do
     it { is_expected.to be_satisfied_by '>= 1.14' }
-  end
-  describe os_env('GEM_HOME') do
-    its('content') { should_not be_empty }
-  end
-  GEM_HOME = os_env('GEM_HOME').content
-  unless GEM_HOME.to_s.empty?
-    describe directory(GEM_HOME) do
-      it { should exist }
-    end
   end
   describe command('ruby -e "require \'bundler\'; print Bundler.settings[:specific_platform]"') do
     its('stdout') { should eq 'true' }
