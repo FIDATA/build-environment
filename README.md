@@ -38,7 +38,7 @@ Prerequisites:
     name: inspec
     inspec_tests:
       - git: https://github.com/FIDATA/build-environment
-        tag: v1.4.0
+        tag: v1.5.0
 ```
 
 
