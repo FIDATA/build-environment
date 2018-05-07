@@ -91,7 +91,7 @@ control 'common' do
     it { is_expected.to be_satisfied_by '>= 1.14' }
   end
   describe command('ruby -e "require \'bundler\'; print Bundler.settings[:specific_platform]"') do
-    its('stdout') { should eq 'true' }
+    its('stdout') { should match /Atrue\s*\z/ }
   end
 
   describe command(os.windows? ? 'py' : 'python3') do
