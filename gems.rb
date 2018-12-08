@@ -26,4 +26,7 @@ gem 'inspec', '~> 1'
 # WORKAROUND: https://github.com/chef/inspec/issues/2993 <>
 gem 'train', '0.30.0'
 gem 'semverse', '~> 2'
-gem 'rubocop'
+
+group :lint do
+  gem 'rubocop'
+end
